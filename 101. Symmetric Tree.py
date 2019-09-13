@@ -1,3 +1,4 @@
+'''this method is faster than 92.27% of Python3 online submission'''
 '''
 Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
 
