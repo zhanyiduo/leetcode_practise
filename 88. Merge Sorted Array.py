@@ -13,28 +13,26 @@ nums2 = [2,5,6],       n = 3
 
 Output: [1,2,2,3,5,6]
 '''
-class Solution:
-    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
-        """
-        Do not return anything, modify nums1 in-place instead.
-        """
-        nums3 = nums1[:m].copy()
-        j =0
-        k=0
-        if m and n:
-            for i in range(m+n):
-                if nums3[j]<=nums2[k]:
-                    nums1[i] = nums3[j]
-                    j += 1
-                    if j>=m:
-                        nums1[i+1:] = nums2[k:]
-                        break
-                else:
-                    nums1[i] = nums2[k]
-                    k += 1
-                    if k>=n:
-                        nums1[i+1:] = nums3[j:]
-                        break
+def merge(nums1, m, nums2, n):
+    p1 = 0
+    p2 = 0
+    k = 0
+    temp = nums1[:m].copy()
+    while p1<m and p2<n:
+        if temp[p1]<=nums2[p2]:
+            nums1[k] = temp[p1]
+            p1 += 1
         else:
-            nums3.extend(nums2)
-            nums1 = nums3
+            nums1[k] = nums2[p2]
+            p2 += 1
+        k += 1
+    while p1 <m:
+        nums1[k] = temp[p1]
+        p1 += 1
+        k += 1
+    while p2 <n:
+        nums1[k] = nums2[p2]
+        p2 += 1
+        k +=1
+    return nums1
+
