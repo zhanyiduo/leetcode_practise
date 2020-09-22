@@ -23,17 +23,10 @@ This code is faster than 99.58% submissions
 
 class Solution:
     def deleteDuplicates(self, head: ListNode) -> ListNode:
-        if head == None:
-            return head
-        curr_node = head
-        next_node = head.next
-        while curr_node.next != None:
-            while curr_node.val == next_node.val:
-                if next_node.next == None:
-                    curr_node.next = next_node.next
-                    return head
-                next_node = next_node.next
-            curr_node.next = next_node
-            curr_node = next_node
-            next_node = curr_node.next
+        point = head
+        while point and point.next:
+            if point.val == point.next.val:
+                point.next = point.next.next
+            else:
+                point = point.next
         return head

@@ -28,45 +28,17 @@ But the following [1,2,2,null,3,null,3] is not:
 #         self.left = None
 #         self.right = None
 
+#https://www.cnblogs.com/grandyang/p/4051715.html
 class Solution:
-    # self.treelist = []
     def isSymmetric(self, root: TreeNode) -> bool:
-        if root == None:
+        if not root:
             return True
-        else:
-            self.treelist = []
-            level = 0
-            self.getrootlist(root, level)
-            print(self.treelist)
-            for l in range(len(self.treelist)):
-                if not self.islistsymmetry(self.treelist[l]):
-                    return False
-            return True
+        return self.Symetric(root.left, root.right)
 
-    def getrootlist(self, root, level):
-        if len(self.treelist) < level + 1:
-            self.treelist.append([root.val])
-        else:
-            self.treelist[level].append(root.val)
-        level += 1
-        if root.right:
-            self.getrootlist(root.right, level)
-        elif len(self.treelist) < level + 1:
-            self.treelist.append([-999])
-        else:
-            self.treelist[level].append(-999)
-        if root.left:
-            self.getrootlist(root.left, level)
-        elif len(self.treelist) < level + 1:
-            self.treelist.append([-999])
-        else:
-            self.treelist[level].append(-999)
+    def Symetric(self, left, right):
+        if left == None and right == None:
+            return True
+        if (not left and right) or (left and not right) or (left.val != right.val):
+            return False
+        return self.Symetric(left.left, right.right) and self.Symetric(left.right, right.left)
 
-    def islistsymmetry(self, L):
-        if (not L) or (len(L) == 1):
-            return True
-        else:
-            for i in range(len(L)):
-                if not (L[i] == L[-i - 1]):
-                    return False
-            return True

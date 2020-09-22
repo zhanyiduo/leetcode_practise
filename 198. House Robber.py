@@ -16,12 +16,19 @@ Output: 12
 Explanation: Rob house 1 (money = 2), rob house 3 (money = 9) and rob house 5 (money = 1).
              Total amount you can rob = 2 + 9 + 1 = 12.
 '''
+
+
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        prev1 = 0
-        prev2 = 0
-        for n in nums:
-            temp = prev1
-            prev1 = max(prev2+n,prev1)
-            prev2 = temp
-        return prev1
+        n = len(nums)
+        if n == 0:
+            return 0
+        elif n <= 2:
+            return max(nums)
+        g = [0] * n  # creating a list to store the gain value
+        g[0] = nums[0]
+        g[1] = max(nums[1], g[0])
+        for i in range(2, n):
+            g[i] = max(nums[i] + g[i - 2], g[i - 1])  # the value of g[i] is the max between
+
+        return g[n - 1]
