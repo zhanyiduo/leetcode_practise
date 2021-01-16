@@ -20,35 +20,26 @@ A solution set is:
 
 class Solution:
     def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
-        if target == None or len(nums) < 4:
+        #create two index i, j to go over the entire array. Then use two pointers l,u to find the residual
+        if len(nums)<4:
             return []
         else:
-            res = []
             nums.sort()
-            i = 0
-            while i < len(nums):
-                j = i + 1
-                while j < len(nums):
-                    l = j + 1
-                    u = len(nums) - 1
-                    while l < u:
-                        s = nums[i] + nums[j] + nums[l] + nums[u]
-                        if s == target:
-                            res.append([nums[i], nums[j], nums[l], nums[u]])
+            n = len(nums)
+            sol = []
+            for i in range(n-3):
+                for j in range(i+1,n-2):
+                    l = j+1
+                    u = n-1
+                    while l<u:
+                        res = nums[i] + nums[j] + nums[l] + nums[u]
+                        if res == target:
+                            if [nums[i],nums[j],nums[l],nums[u]] not in sol:
+                                sol.append([nums[i],nums[j],nums[l],nums[u]])
                             l += 1
                             u -= 1
-                            while (l < u) and (nums[l] == nums[l - 1]):  # remove duplicates on l
-                                l += 1
-                            while (l < u) and (nums[u] == nums[u + 1]):
-                                u -= 1
-                        elif s < target:
-                            l += 1
+                        elif res < target:
+                            l +=1
                         else:
-                            u -= 1
-                    while (j < len(nums) - 1) and (nums[j] == nums[j + 1]):
-                        j += 1
-                    j += 1
-                while (i < len(nums) - 1) and (nums[i] == nums[i + 1]):
-                    i += 1
-                i += 1
-            return res
+                            u -=1
+            return sol

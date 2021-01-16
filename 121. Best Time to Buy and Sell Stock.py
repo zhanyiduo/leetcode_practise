@@ -19,16 +19,21 @@ Explanation: In this case, no transaction is done, i.e. max profit = 0.
 '''
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        if not prices:
+        if len(prices)<=1:
             return 0
-        else:
-            minprice = 999999
-            profit = 0
-            for i in range(0,len(prices),1):
-                if prices[i]<minprice:
-                    minprice = prices[i]
-                elif prices[i] - minprice > profit:
-                    profit = prices[i] - minprice
-                else:
-                    continue
-            return profit
+        profit = 0
+        l = 0
+        u = 1
+        res = 0
+        while l<u and u<len(prices):
+            profit = prices[u] - prices[l]
+            if profit <=0:
+                l=u
+                u+=1
+                continue
+            elif profit > res:
+                res = profit
+                u += 1
+            else:
+                u+=1
+        return res
